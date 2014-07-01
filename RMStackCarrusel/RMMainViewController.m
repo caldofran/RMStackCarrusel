@@ -79,11 +79,33 @@
                              self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
                          } completion:NULL];
     }
+    
+    if (xOffset > 0 && !decelerate) {
+        [UIView animateWithDuration:0.3
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState|
+         UIViewAnimationOptionAllowUserInteraction|
+         UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+                         } completion:NULL];
+    }
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-    
+    CGFloat xOffset = scrollView.contentOffset.x;
+    if (xOffset >= 0) {
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+        [UIView animateWithDuration:0.3
+                              delay:0.0f
+                            options:UIViewAnimationOptionBeginFromCurrentState|
+         UIViewAnimationOptionAllowUserInteraction|
+         UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+                         } completion:NULL];
+    }
 }
 
 #pragma mark - Actions

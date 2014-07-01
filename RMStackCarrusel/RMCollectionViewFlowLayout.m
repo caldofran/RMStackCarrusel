@@ -36,7 +36,9 @@ static const CGFloat pagingOffset = 50;
     NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
     NSLog(@"Offset: %f", xOffset);
     if (xOffset <= 0) {
-        [indexPathsForVisibleItems addObject:[NSIndexPath indexPathForItem:0 inSection:0]];
+        for (NSInteger i = 0; i <numberOfItems; i++) {
+            [indexPathsForVisibleItems addObject:[NSIndexPath indexPathForItem:i inSection:0]];
+        }
     } else {
         CGFloat highestVisibleIndex = (xOffset / pagingOffset) + 1;
         NSLog(@"highestVisibleIndex: %f", highestVisibleIndex);
