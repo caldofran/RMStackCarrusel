@@ -8,10 +8,12 @@
 
 #import "RMMainViewController.h"
 #import "RMCarruselCell.h"
+#import "RMDeleteView.h"
+
+static const CGFloat deleteButtonOffset = 90;
 
 @interface RMMainViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 @end
 
 @implementation RMMainViewController
@@ -29,11 +31,7 @@
 {
     [super viewDidLoad];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RMCarruselCell class]) bundle:nil] forCellWithReuseIdentifier:NSStringFromClass([RMCarruselCell class])];
-    UIButton *deleteButton = [[UIButton alloc] initWithFrame:CGRectMake(-90, 0, 90, self.collectionView.frame.size.height)];
-    [deleteButton addTarget:self action:@selector(deleteTrip) forControlEvents:UIControlEventTouchUpInside];
-    [deleteButton setTitle:@"BORRAR" forState:UIControlStateNormal];
-    deleteButton.backgroundColor = [UIColor clearColor];
-    [self.collectionView addSubview:deleteButton];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RMDeleteView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([RMDeleteView class])];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,40 +53,36 @@
     return cell;
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    if (kind == UICollectionElementKindSectionHeader) {
+        RMDeleteView *deleteView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([RMDeleteView class]) forIndexPath:indexPath];
+        return deleteView;
+    }
+    return nil;
+}
+
 #pragma mark - UICollectionViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat xOffset = scrollView.contentOffset.x;
+    if (xOffset >= -deleteButtonOffset && xOffset <= 0) {
+        self.collectionView.contentInset = UIEdgeInsetsMake(0, -xOffset, 0, 0);
+    }
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     CGFloat xOffset = scrollView.contentOffset.x;
-    if (xOffset <= -90) {
-        [UIView animateWithDuration:0.3
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState|
-         UIViewAnimationOptionAllowUserInteraction|
-         UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             self.collectionView.contentInset = UIEdgeInsetsMake(0, 90, 0, 0);
-                         } completion:NULL];
+    if (xOffset <= -deleteButtonOffset) {
+        [self showDeleteButton:YES];
         
     } else {
-        [UIView animateWithDuration:0.3
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState|
-         UIViewAnimationOptionAllowUserInteraction|
-         UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-                         } completion:NULL];
+        [self showDeleteButton:NO];
     }
     
     if (xOffset > 0 && !decelerate) {
-        [UIView animateWithDuration:0.3
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState|
-         UIViewAnimationOptionAllowUserInteraction|
-         UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
-                         } completion:NULL];
+        [self scrollToInitialPossitionAnimated];
     }
 }
 
@@ -96,29 +90,31 @@
 {
     CGFloat xOffset = scrollView.contentOffset.x;
     if (xOffset >= 0) {
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
-        [UIView animateWithDuration:0.3
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState|
-         UIViewAnimationOptionAllowUserInteraction|
-         UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
-                         } completion:NULL];
+        [self scrollToInitialPossitionAnimated];
     }
+}
+
+#pragma mark - Animations
+- (void)scrollToInitialPossitionAnimated
+{
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseOut animations:^{
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    } completion:NULL];
+}
+
+- (void)showDeleteButton:(BOOL)show
+{
+    CGFloat threshold = show ? deleteButtonOffset : 0;
+    CGFloat duration = 0.2;
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseOut animations:^{
+        self.collectionView.contentInset = UIEdgeInsetsMake(0, threshold, 0, 0);
+    } completion:NULL];
 }
 
 #pragma mark - Actions
 - (void)deleteTrip
 {
-    [UIView animateWithDuration:0.2
-                          delay:0.0f
-                        options:UIViewAnimationOptionBeginFromCurrentState|
-     UIViewAnimationOptionAllowUserInteraction|
-     UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-                     } completion:NULL];
+    [self showDeleteButton:NO];
 }
 
 @end

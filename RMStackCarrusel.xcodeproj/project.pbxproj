@@ -29,6 +29,8 @@
 		45AE2489195C0E84008D6795 /* RMCarruselCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AE2488195C0E84008D6795 /* RMCarruselCell.m */; };
 		45AE248B195C1271008D6795 /* RMCarruselCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45AE248A195C1271008D6795 /* RMCarruselCell.xib */; };
 		45AE248E195C13A8008D6795 /* RMCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AE248D195C13A8008D6795 /* RMCollectionViewFlowLayout.m */; };
+		45EF24181962BD9800015C4D /* RMDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EF24171962BD9800015C4D /* RMDeleteView.m */; };
+		45EF241A1962BDB200015C4D /* RMDeleteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45EF24191962BDB200015C4D /* RMDeleteView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,9 @@
 		45AE248A195C1271008D6795 /* RMCarruselCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMCarruselCell.xib; sourceTree = "<group>"; };
 		45AE248C195C13A8008D6795 /* RMCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		45AE248D195C13A8008D6795 /* RMCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		45EF24161962BD9800015C4D /* RMDeleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDeleteView.h; sourceTree = "<group>"; };
+		45EF24171962BD9800015C4D /* RMDeleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDeleteView.m; sourceTree = "<group>"; };
+		45EF24191962BDB200015C4D /* RMDeleteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMDeleteView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +145,9 @@
 				45AE2487195C0E84008D6795 /* RMCarruselCell.h */,
 				45AE2488195C0E84008D6795 /* RMCarruselCell.m */,
 				45AE248A195C1271008D6795 /* RMCarruselCell.xib */,
+				45EF24161962BD9800015C4D /* RMDeleteView.h */,
+				45EF24171962BD9800015C4D /* RMDeleteView.m */,
+				45EF24191962BDB200015C4D /* RMDeleteView.xib */,
 				45AE248C195C13A8008D6795 /* RMCollectionViewFlowLayout.h */,
 				45AE248D195C13A8008D6795 /* RMCollectionViewFlowLayout.m */,
 			);
@@ -258,6 +266,7 @@
 			files = (
 				45AE2482195C0E15008D6795 /* default0.jpg in Resources */,
 				45AE2454195C0ACD008D6795 /* InfoPlist.strings in Resources */,
+				45EF241A1962BDB200015C4D /* RMDeleteView.xib in Resources */,
 				45AE2484195C0E15008D6795 /* default2.jpg in Resources */,
 				45AE245C195C0ACD008D6795 /* Images.xcassets in Resources */,
 				45AE2486195C0E15008D6795 /* default4.jpg in Resources */,
@@ -285,6 +294,7 @@
 			files = (
 				45AE2456195C0ACD008D6795 /* main.m in Sources */,
 				45AE245A195C0ACD008D6795 /* RMAppDelegate.m in Sources */,
+				45EF24181962BD9800015C4D /* RMDeleteView.m in Sources */,
 				45AE247B195C0AED008D6795 /* RMMainViewController.m in Sources */,
 				45AE2489195C0E84008D6795 /* RMCarruselCell.m in Sources */,
 				45AE248E195C13A8008D6795 /* RMCollectionViewFlowLayout.m in Sources */,
@@ -484,6 +494,7 @@
 				45AE2474195C0ACD008D6795 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		45AE2475195C0ACD008D6795 /* Build configuration list for PBXNativeTarget "RMStackCarruselTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +503,7 @@
 				45AE2477195C0ACD008D6795 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

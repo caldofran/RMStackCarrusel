@@ -26,6 +26,13 @@ static const CGFloat pagingOffset = 50;
         [self recalculateLayoutAttributes:itemAttributes];
         [allItems addObject:itemAttributes];
     }];
+    
+    if ([self shouldAddHeaderView]) {
+        UICollectionViewLayoutAttributes *headerAttributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        [self recalculateHeaderLayoutAttributes:headerAttributes];
+        [allItems addObject:headerAttributes];
+    }
+    
     return allItems;
 }
 
@@ -34,16 +41,13 @@ static const CGFloat pagingOffset = 50;
     NSMutableArray *indexPathsForVisibleItems = [NSMutableArray array];
     CGFloat xOffset = self.collectionView.contentOffset.x;
     NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:0];
-    NSLog(@"Offset: %f", xOffset);
     if (xOffset <= 0) {
         for (NSInteger i = 0; i <numberOfItems; i++) {
             [indexPathsForVisibleItems addObject:[NSIndexPath indexPathForItem:i inSection:0]];
         }
     } else {
         CGFloat highestVisibleIndex = (xOffset / pagingOffset) + 1;
-        NSLog(@"highestVisibleIndex: %f", highestVisibleIndex);
         CGFloat module = fmodf(xOffset, pagingOffset);
-        NSLog(@"module: %f", module);
         if (module == 0) {
             highestVisibleIndex--;
         }
@@ -54,9 +58,16 @@ static const CGFloat pagingOffset = 50;
             [indexPathsForVisibleItems addObject:[NSIndexPath indexPathForItem:i inSection:0]];
         }
     }
-    
-    NSLog(@"VIsible indexPaths: %@", indexPathsForVisibleItems);
     return indexPathsForVisibleItems;
+}
+
+- (BOOL)shouldAddHeaderView
+{
+    CGFloat xOffset = self.collectionView.contentOffset.x;
+    if (xOffset <= 0) {
+        return YES;
+    }
+    return NO;
 }
 
 - (NSArray *)layoutAttributesForElementsWithIndexPaths:(NSArray *)indexPaths
@@ -66,7 +77,6 @@ static const CGFloat pagingOffset = 50;
         NSIndexPath *indexPath = (NSIndexPath *)obj;
         [layoutAttributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
     }];
-    NSLog(@"LayoutAttributes: %@", layoutAttributes);
     return layoutAttributes;
 }
 
@@ -89,7 +99,23 @@ static const CGFloat pagingOffset = 50;
         CGRect itemFrame = layoutAttributes.frame;
         itemFrame.origin.x = newXOrigin;
         layoutAttributes.frame = itemFrame;
+    } else {
+        CGRect itemFrame = layoutAttributes.frame;
+        itemFrame.origin.x = 0;
+        layoutAttributes.frame = itemFrame;
     }
+}
+
+- (void)recalculateHeaderLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
+{
+    CGFloat xOffset = self.collectionView.contentOffset.x;
+    CGRect headerFrame = layoutAttributes.frame;
+    headerFrame.size.width = -xOffset;
+    headerFrame.origin.x = xOffset;
+    layoutAttributes.frame = headerFrame;
+    layoutAttributes.hidden = NO;
+    layoutAttributes.alpha = 1;
+    layoutAttributes.zIndex = 0;
 }
 
 - (CGSize)collectionViewContentSize
@@ -104,11 +130,5 @@ static const CGFloat pagingOffset = 50;
 {
     return YES;
 }
-
-- (void)prepareForAnimatedBoundsChange:(CGRect)oldBounds
-{
-    NSLog(@"prepareForAnimatedBoundsChange");
-}
-
 
 @end
