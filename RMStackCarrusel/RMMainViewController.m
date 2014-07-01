@@ -12,7 +12,7 @@
 
 static const CGFloat deleteButtonOffset = 90;
 
-@interface RMMainViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface RMMainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, RMDeleteViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @end
 
@@ -57,6 +57,7 @@ static const CGFloat deleteButtonOffset = 90;
 {
     if (kind == UICollectionElementKindSectionHeader) {
         RMDeleteView *deleteView = [self.collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([RMDeleteView class]) forIndexPath:indexPath];
+        deleteView.delegate = self;
         return deleteView;
     }
     return nil;
@@ -94,6 +95,12 @@ static const CGFloat deleteButtonOffset = 90;
     }
 }
 
+#pragma mark - RMDeleteViewDelegate
+- (void)deleteButtonWasPressed
+{
+    [self showDeleteButton:NO];
+}
+
 #pragma mark - Animations
 - (void)scrollToInitialPossitionAnimated
 {
@@ -109,12 +116,6 @@ static const CGFloat deleteButtonOffset = 90;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveEaseOut animations:^{
         self.collectionView.contentInset = UIEdgeInsetsMake(0, threshold, 0, 0);
     } completion:NULL];
-}
-
-#pragma mark - Actions
-- (void)deleteTrip
-{
-    [self showDeleteButton:NO];
 }
 
 @end

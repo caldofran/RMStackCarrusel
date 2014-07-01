@@ -31,6 +31,7 @@
 		45AE248E195C13A8008D6795 /* RMCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 45AE248D195C13A8008D6795 /* RMCollectionViewFlowLayout.m */; };
 		45EF24181962BD9800015C4D /* RMDeleteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EF24171962BD9800015C4D /* RMDeleteView.m */; };
 		45EF241A1962BDB200015C4D /* RMDeleteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45EF24191962BDB200015C4D /* RMDeleteView.xib */; };
+		45EF241D1962D85D00015C4D /* RMCollectionViewLayoutAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 45EF241C1962D85D00015C4D /* RMCollectionViewLayoutAttributes.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		45EF24161962BD9800015C4D /* RMDeleteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDeleteView.h; sourceTree = "<group>"; };
 		45EF24171962BD9800015C4D /* RMDeleteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDeleteView.m; sourceTree = "<group>"; };
 		45EF24191962BDB200015C4D /* RMDeleteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RMDeleteView.xib; sourceTree = "<group>"; };
+		45EF241B1962D85D00015C4D /* RMCollectionViewLayoutAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCollectionViewLayoutAttributes.h; sourceTree = "<group>"; };
+		45EF241C1962D85D00015C4D /* RMCollectionViewLayoutAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCollectionViewLayoutAttributes.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 				45EF24191962BDB200015C4D /* RMDeleteView.xib */,
 				45AE248C195C13A8008D6795 /* RMCollectionViewFlowLayout.h */,
 				45AE248D195C13A8008D6795 /* RMCollectionViewFlowLayout.m */,
+				45EF241B1962D85D00015C4D /* RMCollectionViewLayoutAttributes.h */,
+				45EF241C1962D85D00015C4D /* RMCollectionViewLayoutAttributes.m */,
 			);
 			path = RMStackCarrusel;
 			sourceTree = "<group>";
@@ -292,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45EF241D1962D85D00015C4D /* RMCollectionViewLayoutAttributes.m in Sources */,
 				45AE2456195C0ACD008D6795 /* main.m in Sources */,
 				45AE245A195C0ACD008D6795 /* RMAppDelegate.m in Sources */,
 				45EF24181962BD9800015C4D /* RMDeleteView.m in Sources */,

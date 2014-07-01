@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RMDeleteView : UICollectionReusableView
+@protocol RMDeleteViewDelegate <NSObject>
+@optional
+- (void)deleteButtonWasPressed;
+@end
 
+@interface RMDeleteView : UICollectionReusableView
+@property (nonatomic, weak) id<RMDeleteViewDelegate> delegate;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "RMCollectionViewFlowLayout.h"
+#import "RMCollectionViewLayoutAttributes.h"
 
 static const CGFloat pagingOffset = 50;
 
@@ -28,7 +29,7 @@ static const CGFloat pagingOffset = 50;
     }];
     
     if ([self shouldAddHeaderView]) {
-        UICollectionViewLayoutAttributes *headerAttributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        RMCollectionViewLayoutAttributes *headerAttributes = (RMCollectionViewLayoutAttributes *)[self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
         [self recalculateHeaderLayoutAttributes:headerAttributes];
         [allItems addObject:headerAttributes];
     }
@@ -106,7 +107,7 @@ static const CGFloat pagingOffset = 50;
     }
 }
 
-- (void)recalculateHeaderLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
+- (void)recalculateHeaderLayoutAttributes:(RMCollectionViewLayoutAttributes *)layoutAttributes
 {
     CGFloat xOffset = self.collectionView.contentOffset.x;
     CGRect headerFrame = layoutAttributes.frame;
@@ -116,6 +117,7 @@ static const CGFloat pagingOffset = 50;
     layoutAttributes.hidden = NO;
     layoutAttributes.alpha = 1;
     layoutAttributes.zIndex = 0;
+    layoutAttributes.progressiveness = MIN(-xOffset, 90) / 90;
 }
 
 - (CGSize)collectionViewContentSize
@@ -129,6 +131,12 @@ static const CGFloat pagingOffset = 50;
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     return YES;
+}
+
+#pragma mark Overrides
+
++ (Class)layoutAttributesClass {
+    return [RMCollectionViewLayoutAttributes class];
 }
 
 @end
