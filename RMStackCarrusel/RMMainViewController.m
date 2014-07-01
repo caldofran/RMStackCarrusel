@@ -75,10 +75,12 @@ static const CGFloat deleteButtonOffset = 90;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     CGFloat xOffset = scrollView.contentOffset.x;
-    if (xOffset <= -deleteButtonOffset) {
+    if (xOffset < -deleteButtonOffset) {
         [self showDeleteButton:YES];
         
-    } else {
+    }
+    
+    if (xOffset > -deleteButtonOffset && xOffset < 0) {
         [self showDeleteButton:NO];
     }
     

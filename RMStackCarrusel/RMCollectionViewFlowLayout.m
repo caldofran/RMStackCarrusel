@@ -118,6 +118,9 @@ static const CGFloat pagingOffset = 50;
     layoutAttributes.alpha = 1;
     layoutAttributes.zIndex = 0;
     layoutAttributes.progressiveness = MIN(-xOffset, 90) / 90;
+    if (layoutAttributes.progressiveness == 0) {
+        NSLog(@"");
+    }
 }
 
 - (CGSize)collectionViewContentSize

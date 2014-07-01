@@ -20,6 +20,9 @@
 {
     CGFloat progressivenes = layoutAttributes.progressiveness;
     self.delteButton.imageView.alpha = progressivenes;
+    if (progressivenes == 0) {
+        NSLog(@"");
+    }
 }
 
 - (void)setAlpha:(CGFloat)alpha
